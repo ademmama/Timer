@@ -10,16 +10,28 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var label: UILabel!
+    var timer = Timer()
+    var count = 10
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        label.text = "Remaining Time \(count)"
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.timeFunc), userInfo: nil, repeats: true)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    @objc func timeFunc() {
+        count -= 1
+        label.text = "Remaining Time \(count)"
+        if count == 0 {
+            timer.invalidate()
+            label.text = "Time's Off"
+        }
+    }
+    
 }
 
